@@ -157,7 +157,7 @@ where dsc_orgao = 'SECRETARIA DA FAZENDAsssssssssssssssssss'; -- Valores atualiz
 -- Dados com mesmo código e duas descrições (Checar).
 -- 
 
--- Tratamento dos dados. Colunas cod_item_elemento, dsc_item_elemento.
+-- Tratamento dos dados - Valores nulos. Colunas cod_item_elemento, dsc_item_elemento.
 select distinct cod_item_elemento, dsc_item_elemento
 from stage.execucao_financeira_despesa;
 
@@ -256,7 +256,126 @@ update stage.execucao_financeira_despesa
 set dsc_item_elemento = 'RESSARCIMENTO DE DESPESAS DE PESSOAL REQUISITADO'
 where cod_item_elemento = '96'; -- Valores atualizados.
 
+-- Tratamento dos dados - Valores nulos. Colunas cod_item_categoria, dsc_item_categoria.
+select distinct cod_item_categoria, dsc_item_categoria
+from stage.execucao_financeira_despesa;
+
+select count(*) as total, 
+		count(cod_item_categoria) as total_cod_item_categoria, 
+		count(dsc_item_categoria) as total_dsc_item_categoria
+from stage.execucao_financeira_despesa; -- Todas as colunas com a mesma qtde. de dados. 0 null.
+
+-- Tratamento dos dados - Valores duplicados. Colunas cod_item_categoria, dsc_item_categoria.
+select distinct cod_item_categoria, dsc_item_categoria
+from stage.execucao_financeira_despesa;
+
+update stage.execucao_financeira_despesa
+set dsc_item_categoria = 'DESPESAS CORRENTES'
+where dsc_item_categoria = 'DESPESA CORRENTE'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_categoria = 'DESPESAS DE CAPITAL'
+where dsc_item_categoria = 'DESPESA DE CAPITAL'; -- Valores atualizados.
+
+select distinct cod_item_categoria, dsc_item_categoria
+from stage.execucao_financeira_despesa;
+
+-- Tratamento dos dados - Valores nulos. Colunas vlr_empenho, vlr_pagamento.
+select * from stage.execucao_financeira_despesa
+limit 5;
+
+select distinct vlr_empenho, vlr_pagamento
+from stage.execucao_financeira_despesa;
+
+select count(*) as total, 
+		count(vlr_empenho) as total_vlr_empenho,
+		count(vlr_pagamento) as total_vlr_pagamento
+from stage.execucao_financeira_despesa; -- Coluna vlr_pagamento com valores a menor.
+
+select vlr_pagamento
+from stage.execucao_financeira_despesa
+where vlr_pagamento is null; -- 111276 linhas null.
+
+update stage.execucao_financeira_despesa
+set vlr_pagamento = '0.00'
+where vlr_pagamento is null; -- Valores atualizados.
+
+select count(*) as total, 
+		count(vlr_empenho) as total_vlr_empenho,
+		count(vlr_pagamento) as total_vlr_pagamento
+from stage.execucao_financeira_despesa; -- Valores corrigidos.
+
+-- Tratamento dos dados - Valores nulos. Colunas dth_empenho, dth_pagamento.
+select distinct dth_empenho, dth_pagamento
+from stage.execucao_financeira_despesa;
+
+select count(*) as total, 
+		count(dth_empenho) as total_dth_empenho,
+		count(dth_pagamento) as total_dth_pagamento
+from stage.execucao_financeira_despesa; -- Coluna dth_pagamento com valores a menor.
+
+select dth_pagamento
+from stage.execucao_financeira_despesa
+where dth_pagamento is null; -- 111276 linhas null.
+
+update stage.execucao_financeira_despesa
+set dth_pagamento = '2024-01-01'
+where dth_pagamento is null; -- Valores atualizados.
+
+select count(*) as total, 
+		count(dth_empenho) as total_dth_empenho,
+		count(dth_pagamento) as total_dth_pagamento
+from stage.execucao_financeira_despesa; -- Valores corrigidos.
+
+-- num_ano, num_ano_np, cod_ne, cod_np (Checar necessidade de trabalhar com essas colunas).
+
+-- Criar o bd dw (data_warehouse).
+create schema dw;
+
+-- Criar as tabelas do dw (data warehouse). 05 tabelas (dim_tempo, dim_orgao, dim_item_elemento
+-- dim_item_categoria, fato_execucao_financeira).
+-- (Modelagem física).
+create table dw.dim_tempo (
+	id serial not null primary key,	
+	data_inteira date,
+	ano integer,
+	mes integer,
+	dia integer
+);
+
+create table dw.dim_orgao (
+	id serial not null primary key,
+	codigo_orgao text,
+	dsc_orgao text
+);
+
+create table dw.dim_item_elemento (
+	id serial not null primary key,
+	cod_item_elemento text,
+	dsc_item_elemento text
+);
+
+create table dw.dim_item_categoria (
+	id serial not null primary key,
+	cod_item_categoria text,
+	dsc_item_categoria text
+);
+
+create table dw.fato_execucao_financeira (
+	id serial not null primary key,
+	id_orgao INTEGER REFERENCES dw.dim_orgao(id),
+	id_item_categoria INTEGER REFERENCES dw.dim_item_categoria(id),
+    id_item_elemento INTEGER REFERENCES dw.dim_item_elemento(id),
+	id_dth_empenho INTEGER REFERENCES dw.dim_tempo(id),
+    id_dth_pagamento INTEGER REFERENCES dw.dim_tempo(id),
+	vlr_empenho NUMERIC(18,2),
+    vlr_pagamento NUMERIC(18,2)
+);
+
+-- Inserir os dados nas tabelas Dimensão e Fato (dw).
 
 
 
--- Tratamento dos dados. Colunas cod_item_categoria, dsc_item_categoria.
+
+
+
