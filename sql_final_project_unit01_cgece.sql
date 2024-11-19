@@ -305,6 +305,11 @@ select count(*) as total,
 		count(vlr_pagamento) as total_vlr_pagamento
 from stage.execucao_financeira_despesa; -- Valores corrigidos.
 
+-- Tratamento dos dados - Valores negativos. Colunas vlr_empenho, vlr_pagamento.
+select vlr_pagamento, vlr_empenho
+from stage.execucao_financeira_despesa
+where vlr_pagamento < 0 or vlr_empenho < 0;
+
 -- Tratamento dos dados - Valores nulos. Colunas dth_empenho, dth_pagamento.
 select distinct dth_empenho, dth_pagamento
 from stage.execucao_financeira_despesa;
