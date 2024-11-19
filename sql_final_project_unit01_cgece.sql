@@ -379,8 +379,36 @@ create table dw.fato_execucao_financeira (
 
 -- Inserir os dados nas tabelas Dimensão e Fato (dw).
 
+INSERT INTO dw.dim_tempo (data_inteira, ano, mes, dia)
+SELECT
+dt as data_inteira,
+EXTRACT (YEAR FROM dt) AS ano,
+EXTRACT (MONTH FROM dt) AS mes,
+EXTRACT (DAY FROM dt) AS dia
+FROM generate_series (CURRENT_DATE -INTERVAL '30 years', CURRENT_DATE + INTERVAL '5 years', INTERVAL '1 day') AS dt;
 
+insert into dw.dim_orgao (codigo_orgao, dsc_orgao)
+select distinct codigo_orgao, dsc_orgao
+from stage.execucao_financeira_despesa;
 
+insert into dw.dim_item_elemento (cod_item_elemento, dsc_item_elemento)
+select distinct cod_item_elemento, dsc_item_elemento
+from stage.execucao_financeira_despesa;
 
+insert into dw.dim_item_categoria (cod_item_categoria, dsc_item_categoria)
+select distinct cod_item_categoria, dsc_item_categoria
+from stage.execucao_financeira_despesa
+order by cod_item_categoria;
 
-
+--
+select * from dw.dim_tempo;
+select * from dw.dim_orgao;
+select * from dw.dim_item_elemento;
+select * from dw.dim_item_categoria;
+--
+	
+insert into dw.fato_execucao_financeira (
+	id_orgao, id_item_categoria, id_item_elemento, id_dth_empenho, id_dth_pagamento, vlr_empenho, vlr_pagamento)
+select dor.id_orgao, id_item_categoria, id_item_elemento, id_dth_empenho, id_dth_pagamento, vlr_empenho, vlr_pagamento
+from stage.execucao_financeira_despesa efd
+inner join dw.dim_orgao dor on 
