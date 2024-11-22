@@ -1,3 +1,8 @@
+-- Criar bd "projeto_cgece".
+create database projeto_cgece;
+
+-- Restore do bd do projeto.
+
 -- Visualizar a tabela execucao_financeira_despesa (public), as colunas e os dados.
 select * from public.execucao_financeira_despesa
 limit 5;
@@ -110,7 +115,7 @@ from public.execucao_financeira_despesa;
 select * from stage.execucao_financeira_despesa
 limit 5;
 
--- Definir colunas a serem trabalhadas. 
+-- Definir colunas a serem trabalhadas.
 -- Obrigatórias para a equipe A: orgao, item_elemento, item_categoria.
 -- Proposta para o dw: dim_tempo, dim_orgao, dim_item_elemento, dim_item_categoria, fato (5 tabelas).
 
@@ -123,7 +128,7 @@ from stage.execucao_financeira_despesa; -- Coluna dsc_orgao com valores a menor,
 
 select distinct codigo_orgao, dsc_orgao
 from stage.execucao_financeira_despesa
-where dsc_orgao is null; -- 22 linhas null.
+where dsc_orgao is null; -- 22 linhas null (439 linhas no total).
 
 update stage.execucao_financeira_despesa
 set dsc_orgao = 'NÃO INFORMADO'
@@ -256,6 +261,10 @@ update stage.execucao_financeira_despesa
 set dsc_item_elemento = 'RESSARCIMENTO DE DESPESAS DE PESSOAL REQUISITADO'
 where cod_item_elemento = '96'; -- Valores atualizados.
 
+select cod_item_elemento, dsc_item_elemento
+from stage.execucao_financeira_despesa
+group by cod_item_elemento, dsc_item_elemento; 
+
 -- Tratamento dos dados - Valores nulos. Colunas cod_item_categoria, dsc_item_categoria.
 select distinct cod_item_categoria, dsc_item_categoria
 from stage.execucao_financeira_despesa;
@@ -340,6 +349,8 @@ create schema dw;
 -- Criar as tabelas do dw (data warehouse). 05 tabelas (dim_tempo, dim_orgao, dim_item_elemento
 -- dim_item_categoria, fato_execucao_financeira).
 -- (Modelagem física).
+
+-- dim_tempo
 create table dw.dim_tempo (
 	id serial not null primary key,	
 	data_inteira date,
@@ -348,24 +359,28 @@ create table dw.dim_tempo (
 	dia integer
 );
 
+-- dim_orgao
 create table dw.dim_orgao (
 	id serial not null primary key,
 	codigo_orgao text,
 	dsc_orgao text
 );
 
+-- dim_item_elemento
 create table dw.dim_item_elemento (
 	id serial not null primary key,
 	cod_item_elemento text,
 	dsc_item_elemento text
 );
 
+-- dim_item_categoria
 create table dw.dim_item_categoria (
 	id serial not null primary key,
 	cod_item_categoria text,
 	dsc_item_categoria text
 );
 
+-- fato_execucao_financeira
 create table dw.fato_execucao_financeira (
 	id serial not null primary key,
 	id_orgao INTEGER REFERENCES dw.dim_orgao(id),
@@ -379,6 +394,7 @@ create table dw.fato_execucao_financeira (
 
 -- Inserir os dados nas tabelas Dimensão e Fato (dw).
 
+-- dim_tempo
 INSERT INTO dw.dim_tempo (data_inteira, ano, mes, dia)
 SELECT
 dt as data_inteira,
@@ -387,28 +403,47 @@ EXTRACT (MONTH FROM dt) AS mes,
 EXTRACT (DAY FROM dt) AS dia
 FROM generate_series (CURRENT_DATE -INTERVAL '30 years', CURRENT_DATE + INTERVAL '5 years', INTERVAL '1 day') AS dt;
 
+-- dim_orgao
 insert into dw.dim_orgao (codigo_orgao, dsc_orgao)
 select distinct codigo_orgao, dsc_orgao
 from stage.execucao_financeira_despesa;
 
+-- dim_item_elemento
 insert into dw.dim_item_elemento (cod_item_elemento, dsc_item_elemento)
 select distinct cod_item_elemento, dsc_item_elemento
 from stage.execucao_financeira_despesa;
 
+-- dim_item_categoria
 insert into dw.dim_item_categoria (cod_item_categoria, dsc_item_categoria)
 select distinct cod_item_categoria, dsc_item_categoria
 from stage.execucao_financeira_despesa
 order by cod_item_categoria;
+
+-- fato_execucao_financeira
+insert into dw.fato_execucao_financeira (
+	id_orgao, id_item_categoria, id_item_elemento, id_dth_empenho, id_dth_pagamento, vlr_empenho, vlr_pagamento)
+select dor.id as id_orgao, 
+		dic.id as id_item_categoria, 
+		die.id as id_item_elemento, 
+		dt_empenho.id as id_data_empenho,
+		dt_pagamento.id as id_data_pagamento,
+		vlr_empenho as valor_empenho, 
+		vlr_pagamento as valor_pagamento
+from stage.execucao_financeira_despesa efd
+inner join dw.dim_orgao dor on efd.codigo_orgao = dor.codigo_orgao
+inner join dw.dim_item_elemento die on efd.cod_item_elemento = die.cod_item_elemento
+inner join dw.dim_item_categoria dic on efd.cod_item_categoria = dic.cod_item_categoria
+inner join dw.dim_tempo dt_empenho on efd.dth_empenho = dt_empenho.data_inteira
+left join dw.dim_tempo dt_pagamento on efd.dth_pagamento = dt_pagamento.data_inteira;
 
 --
 select * from dw.dim_tempo;
 select * from dw.dim_orgao;
 select * from dw.dim_item_elemento;
 select * from dw.dim_item_categoria;
+select * from dw.fato_execucao_financeira;
 --
-	
-insert into dw.fato_execucao_financeira (
-	id_orgao, id_item_categoria, id_item_elemento, id_dth_empenho, id_dth_pagamento, vlr_empenho, vlr_pagamento)
-select dor.id_orgao, id_item_categoria, id_item_elemento, id_dth_empenho, id_dth_pagamento, vlr_empenho, vlr_pagamento
-from stage.execucao_financeira_despesa efd
-inner join dw.dim_orgao dor on 
+
+-- Conexão do dw com o Microsoft Power BI.
+-- Desenvolver o Dashboard.
+
