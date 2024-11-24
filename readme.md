@@ -16,3 +16,5 @@ Instrutora: [Nayara Wakweski](https://github.com/NayaraWakewski) <br>
 6. Bd dw (Data Warehouse)
 7. Conexão dw com Microsoft Power BI
 8. Dashboard
+
+Obs.: Desenvolvimento de cada etapa a ser publicado em breve.
