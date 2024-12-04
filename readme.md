@@ -27,14 +27,14 @@ O objetivo deste projeto é construir um ambiente de análise de dados robusto a
 O projeto visa desenvolver análises que servirão como base para tomadas de decisões estratégicas para o negócio.
 
 ### 1.2. Time envolvido (Data Analysts)
-Renato Albuquerque
-Vinicius Costa
-Alexsandro Cassiano
-Antonio Marcos
+Renato Albuquerque <br>
+Vinicius Costa <br>
+Alexsandro Cassiano <br>
+Antonio Marcos <br>
 Emmanuel Pinto
 
 ### 1.3. Prazos
-Início: 28/10/2024
+Início: 28/10/2024 <br>
 Término: 23/11/2024
 
 ### 1.4. Planejamento / Kick Off
