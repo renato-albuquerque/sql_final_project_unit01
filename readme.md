@@ -45,3 +45,16 @@ Desenvolvimento de cronograma para planejar cada fase de execução do projeto.
 
 ![screenshot](/images/kick_off.png) <br>
 
+## 2. Bd Produção
+
+## 3. Bd Stage
+
+## 4. ETL (Extract, Transform, Load) | Tratamento dos Dados
+
+## 5. Modelagem Lógica para o dw (BdSchema)
+
+## 6. Bd dw (Data Warehouse)
+
+## 7. Conexão dw com Microsoft Power BI
+
+## 8. Dashboard
