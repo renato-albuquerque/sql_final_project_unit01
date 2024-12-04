@@ -1,6 +1,6 @@
 # Projeto Final Unidade 01 | SQL | Data Analytics | Digital College Brasil
 
-Desenvolvimento de Projeto de Banco de Dados, desde o 'RESTORE do bd' até a entrega do 'DASHBOARD'.<br>
+Desenvolvimento de Projeto de Banco de Dados, desde o `RESTORE do bd` até a entrega do `DASHBOARD`.<br>
 Tecnologias utilizadas: SQL / PostgreSQL / BdSchema / Microsoft Power BI.<br> 
 
 Instituição: [Digital College Brasil](https://digitalcollege.com.br/) (Fortaleza/CE) <br>
