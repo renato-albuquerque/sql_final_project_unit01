@@ -17,30 +17,30 @@ Instrutora: [Nayara Wakweski](https://github.com/NayaraWakewski) <br>
 7. Conexão dw com Microsoft Power BI
 8. Dashboard
 
-Nota: Foi desenvolvida `DOCUMENTAÇÃO DO PROJETO` com informações detalhadas para cada etapa.<br>
+Nota: Foi desenvolvida `DOCUMENTAÇÃO DO PROJETO` com informações detalhadas para cada etapa (Anexo pasta `files`).<br>
 
-## Entendimento do Projeto (Kick Off)
+## 1. Entendimento do Projeto (Kick Off)
 
-### Sobre o Projeto
+### 1.1. Sobre o Projeto
 A área de negócio do projeto foi uma base real de Execução Financeira e Despesa da Controladoria Geral do Estado do Ceará (CGE-CE).
 O objetivo deste projeto é construir um ambiente de análise de dados robusto a partir de uma base relacional, utilizando as técnicas de ETL para criar um Data Warehouse eficaz.  
 O projeto visa desenvolver análises que servirão como base para tomadas de decisões estratégicas para o negócio.
 
-### Time envolvido (Data Analysts)
+### 1.2. Time envolvido (Data Analysts)
 Renato Albuquerque
 Vinicius Costa
 Alexsandro Cassiano
 Antonio Marcos
 Emmanuel Pinto
 
-### Prazos
+### 1.3. Prazos
 Início: 28/10/2024
 Término: 23/11/2024
 
-### Planejamento / Kick Off
+### 1.4. Planejamento / Kick Off
 Leitura e discussão do material (Briefing do Projeto, Dicionário explicando as colunas e dados da tabela, Conhecimento do bd). Material anexo, pasta `files`.
 
-### Cronograma 
+### 1.5. Cronograma 
 Desenvolvimento de cronograma para planejar cada fase de execução do projeto.
 
 ![screenshot](/images/kick_off.png) <br>
