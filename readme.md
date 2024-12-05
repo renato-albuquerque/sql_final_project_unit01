@@ -47,6 +47,21 @@ Desenvolvimento de cronograma para planejar cada fase de execução do projeto.
 
 ## 2. Bd Produção
 
+- Criar bd `projeto_cgece`.
+```
+create database projeto_cgece;
+```
+
+- Realizar `RESTORE` do bd do projeto.
+(image)
+
+- Visualizar a tabela execucao_financeira_despesa (schema public), as colunas e os dados.
+```
+select * from public.execucao_financeira_despesa
+limit 5;
+```
+(image)
+
 ## 3. Bd Stage
 
 ## 4. ETL (Extract, Transform, Load) | Tratamento dos Dados
