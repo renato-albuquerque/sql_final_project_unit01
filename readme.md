@@ -185,7 +185,7 @@ limit 5;
 
 ## 4. ETL (Extract, Transform, Load) | Tratamento dos Dados
 
-- Definições da equipe:
+- Definições da equipe: <br>
 Definir colunas a serem trabalhadas. <br>
 Colunas obrigatórias para a equipe: orgao, item_elemento, item_categoria. <br>
 Proposta para o dw: dim_tempo, dim_orgao, dim_item_elemento, dim_item_categoria, fato (5 tabelas).
