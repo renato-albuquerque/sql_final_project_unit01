@@ -144,35 +144,35 @@ insert into stage.execucao_financeira_despesa (
 	num_ano_np	
 )
 select num_ano,
-		cod_ne,
-		codigo_orgao, 
-		dsc_orgao,
-		cod_fonte,
-		dsc_fonte,
-		cod_funcao,
-		dsc_funcao,
-		cod_item,
-		dsc_item,
-		cod_item_elemento,
-		dsc_item_elemento,
-		cod_item_categoria,
-		dsc_item_categoria,
-		cod_item_grupo,
-		dsc_item_grupo,
-		dsc_modalidade_licitacao,
-		cod_item_modalidade,
-		dsc_item_modalidade,
-		cod_programa,
-		dsc_programa,
-		cod_subfuncao,
-		dsc_subfuncao,
-		cod_np,
-		vlr_empenho,
-		vlr_pagamento,
-		dth_empenho,
-		dth_pagamento,
-		id,
-		num_ano_np
+	cod_ne,
+	codigo_orgao, 
+	dsc_orgao,
+	cod_fonte,
+	dsc_fonte,
+	cod_funcao,
+	dsc_funcao,
+	cod_item,
+	dsc_item,
+	cod_item_elemento,
+	dsc_item_elemento,
+	cod_item_categoria,
+	dsc_item_categoria,
+	cod_item_grupo,
+	dsc_item_grupo,
+	dsc_modalidade_licitacao,
+	cod_item_modalidade,
+	dsc_item_modalidade,
+	cod_programa,
+	dsc_programa,
+	cod_subfuncao,
+	dsc_subfuncao,
+	cod_np,
+	vlr_empenho,
+	vlr_pagamento,
+	dth_empenho,
+	dth_pagamento,
+	id,
+	num_ano_np
 from public.execucao_financeira_despesa;
 ``` 
 
@@ -184,6 +184,11 @@ limit 5;
 (image)
 
 ## 4. ETL (Extract, Transform, Load) | Tratamento dos Dados
+
+- Definições da equipe:
+Definir colunas a serem trabalhadas. <br>
+Colunas obrigatórias para a equipe: orgao, item_elemento, item_categoria. <br>
+Proposta para o dw: dim_tempo, dim_orgao, dim_item_elemento, dim_item_categoria, fato (5 tabelas).
 
 ## 5. Modelagem Lógica para o dw (BdSchema)
 
