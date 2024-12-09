@@ -201,7 +201,7 @@ from stage.execucao_financeira_despesa
 group by cod_item_elemento, dsc_item_elemento
 having count(dsc_item_elemento) > 1; --82 resultados
 
--- Corrigir dados duplicados, erro digitacao, texto minúsculo.
+-- Tratamento dos dados - Corrigir dados duplicados, erro digitacao, texto minúsculo. Colunas cod_item_elemento, dsc_item_elemento.
 update stage.execucao_financeira_despesa
 set cod_item_elemento = '11'
 where dsc_item_elemento = 'VENCIMENTOS E VANTAGENS FIXAS - PESSOAL'; -- Valores atualizados.
@@ -343,7 +343,9 @@ from stage.execucao_financeira_despesa; -- Valores corrigidos.
 
 -- num_ano, num_ano_np, cod_ne, cod_np (Checar necessidade de trabalhar com essas colunas).
 
--- Criar o bd dw (data_warehouse).
+-- Etapa de criar modelagem lógica do dw (BdSchema).
+
+-- Criar o bd dw, data_warehouse (Modelagem física).
 create schema dw;
 
 -- Criar as tabelas do dw (data warehouse). 05 tabelas (dim_tempo, dim_orgao, dim_item_elemento
