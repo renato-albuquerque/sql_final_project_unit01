@@ -190,6 +190,38 @@ Definir colunas a serem trabalhadas. <br>
 Colunas obrigatórias para a equipe: orgao, item_elemento, item_categoria. <br>
 Proposta para o dw: dim_tempo, dim_orgao, dim_item_elemento, dim_item_categoria, fato (5 tabelas).
 
+### Tratamento dos dados - Valores nulos. Colunas codigo_orgao, dsc_orgao.
+```
+select distinct codigo_orgao, dsc_orgao
+from stage.execucao_financeira_despesa;
+
+select count(*) as total, count(codigo_orgao) as total_cod_orgao, count(dsc_orgao) as total_dsc_orgao
+from stage.execucao_financeira_despesa; -- Coluna dsc_orgao com valores a menor, checar.
+```
+
+```
+select distinct codigo_orgao, dsc_orgao
+from stage.execucao_financeira_despesa
+where dsc_orgao is null; -- 22 linhas null (439 linhas no total).
+```
+
+```
+update stage.execucao_financeira_despesa
+set dsc_orgao = 'NÃO INFORMADO'
+where dsc_orgao is null; -- Valores atualizados.
+```
+
+```
+select count(*) as total, count(codigo_orgao) as total_cod_orgao, count(dsc_orgao) as total_dsc_orgao
+from stage.execucao_financeira_despesa; -- Todas as colunas com valores iguais.
+```
+
+Nota: Inserir visualizções das consultas (Em breve).
+
+### 
+
+
+
 ## 5. Modelagem Lógica para o dw (BdSchema)
 
 ## 6. Bd dw (Data Warehouse)
