@@ -214,13 +214,258 @@ where dsc_orgao is null; -- Valores atualizados.
 ```
 select count(*) as total, count(codigo_orgao) as total_cod_orgao, count(dsc_orgao) as total_dsc_orgao
 from stage.execucao_financeira_despesa; -- Todas as colunas com valores iguais.
+
+select distinct codigo_orgao, dsc_orgao
+from stage.execucao_financeira_despesa;
 ```
 
 Nota: Inserir visualizções das consultas (Em breve).
 
-### 
+### Tratamento dos dados - Valores duplicados. Colunas codigo_orgao, dsc_orgao.
+```
+select distinct codigo_orgao, dsc_orgao
+from stage.execucao_financeira_despesa
+group by codigo_orgao, dsc_orgao; --1086 resultados
 
+select distinct codigo_orgao, dsc_orgao
+from stage.execucao_financeira_despesa
+group by codigo_orgao, dsc_orgao
+having count(codigo_orgao) > 1; --1084 resultados
+```
 
+```
+update stage.execucao_financeira_despesa
+set dsc_orgao = 'FUNDO DE PREVIDENCIA PARLAMENTAR DA ASSEMB LEGISL DO CE'
+where dsc_orgao = 'FUNDO DE PREVIDENCIA PARLAMENTAR'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_orgao = 'SECRETARIA DA FAZENDA'
+where dsc_orgao = 'SECRETARIA DA FAZENDAsssssssssssssssssss'; -- Valores atualizados.
+```
+
+Nota: Inserir visualizções das consultas (Em breve).
+
+### Tratamento dos dados - Valores nulos. Colunas cod_item_elemento, dsc_item_elemento.
+```
+select distinct cod_item_elemento, dsc_item_elemento
+from stage.execucao_financeira_despesa;
+
+select count(*) as total, 
+	count(cod_item_elemento) as total_cod_item_elemento, 
+	count(dsc_item_elemento) as total_dsc_item_elemento
+from stage.execucao_financeira_despesa; -- Coluna count(*) com valores a menor, checar.
+```
+
+```
+select cod_item_elemento, dsc_item_elemento
+from stage.execucao_financeira_despesa
+where dsc_item_elemento is null; -- 1683 linhas null.
+```
+
+```
+update stage.execucao_financeira_despesa
+set cod_item_elemento = '00'
+where cod_item_elemento is null; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'NÃO INFORMADO'
+where dsc_item_elemento is null; -- Valores atualizados.
+```
+
+```
+select count(*) as total, 
+	count(cod_item_elemento) as total_cod_item_elemento, 
+	count(dsc_item_elemento) as total_dsc_item_elemento
+from stage.execucao_financeira_despesa; -- Todas as colunas com valores iguais.
+
+select distinct cod_item_elemento, dsc_item_elemento
+from stage.execucao_financeira_despesa;
+```
+
+Nota: Inserir visualizções das consultas (Em breve).
+
+### Tratamento dos dados - Valores duplicados. Colunas cod_item_elemento, dsc_item_elemento.
+```
+select distinct cod_item_elemento, dsc_item_elemento
+from stage.execucao_financeira_despesa
+group by cod_item_elemento, dsc_item_elemento; --82 resultados
+
+select distinct cod_item_elemento, dsc_item_elemento
+from stage.execucao_financeira_despesa
+group by cod_item_elemento, dsc_item_elemento
+having count(dsc_item_elemento) > 1; --82 resultados
+```
+
+Nota: Inserir visualizções das consultas (Em breve).
+
+### Tratamento dos dados - Corrigir dados duplicados, erro digitacao, texto minúsculo. Colunas cod_item_elemento, dsc_item_elemento.
+
+```
+update stage.execucao_financeira_despesa
+set cod_item_elemento = '11'
+where dsc_item_elemento = 'VENCIMENTOS E VANTAGENS FIXAS - PESSOAL'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'OUTRAS DESPESAS VARIÁVEIS - PESSOAL CIVIL'
+where dsc_item_elemento = 'OUTRAS DESPESAS VARIÁVEIS - PESSOAL CIVI'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = upper(dsc_item_elemento);
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'PREMIAÇÕES CULTURAIS, ARTÍSTICAS, CIENTÍFICAS, DESPORTIVAS E OUTRAS'
+where dsc_item_elemento = 'PREMIAÇÕES CULTURAIS, ARTÍSTICAS, CIENTÍ'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'OUTROS ENCARGOS SOBRE A DÍVIDA POR CONTRATO'
+where cod_item_elemento = '22'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'ENCARGOS PELA HONRA DE AVAIS, GARANTIAS, SEGUROS E SIMILARES'
+where cod_item_elemento = '27'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'OUTRAS DESPESAS DE PESSOAL DECORRENTES DE CONTRATOS DE TERCEIRIZAÇÃO'
+where cod_item_elemento = '34'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'SERVIÇOS DE CONSULTORIA'
+where cod_item_elemento = '35'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'OUTROS SERVIÇOS DE TERCEIROS - PESSOA FÍSICA'
+where cod_item_elemento = '36'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'OUTROS SERVIÇOS DE TERCEIROS - PESSOA JURÍDICA'
+where cod_item_elemento = '39'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'OUTROS AUXÍLIOS FINANCEIROS A PESSOAS FÍSICAS'
+where cod_item_elemento = '48'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'PENSÕES ESPECIAIS'
+where cod_item_elemento = '59'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'CONSTITUIÇÃO OU AUMENTO DE CAPITAL DE EMPRESAS'
+where cod_item_elemento = '65'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'RATEIO PELA PARTICIPAÇÃO EM CONSÓRCIO PÚBLICO'
+where cod_item_elemento = '70'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_elemento = 'RESSARCIMENTO DE DESPESAS DE PESSOAL REQUISITADO'
+where cod_item_elemento = '96'; -- Valores atualizados.
+
+select cod_item_elemento, dsc_item_elemento
+from stage.execucao_financeira_despesa
+group by cod_item_elemento, dsc_item_elemento;
+```
+
+Nota: Inserir visualizções das consultas (Em breve).
+
+### Tratamento dos dados - Valores nulos. Colunas cod_item_categoria, dsc_item_categoria.
+```
+select distinct cod_item_categoria, dsc_item_categoria
+from stage.execucao_financeira_despesa;
+
+select count(*) as total, 
+	count(cod_item_categoria) as total_cod_item_categoria, 
+	count(dsc_item_categoria) as total_dsc_item_categoria
+from stage.execucao_financeira_despesa; -- Todas as colunas com a mesma qtde. de dados. 0 null.
+```
+
+Nota: Inserir visualizções das consultas (Em breve).
+
+### Tratamento dos dados - Valores duplicados. Colunas cod_item_categoria, dsc_item_categoria.
+```
+select distinct cod_item_categoria, dsc_item_categoria
+from stage.execucao_financeira_despesa;
+```
+
+```
+update stage.execucao_financeira_despesa
+set dsc_item_categoria = 'DESPESAS CORRENTES'
+where dsc_item_categoria = 'DESPESA CORRENTE'; -- Valores atualizados.
+
+update stage.execucao_financeira_despesa
+set dsc_item_categoria = 'DESPESAS DE CAPITAL'
+where dsc_item_categoria = 'DESPESA DE CAPITAL'; -- Valores atualizados.
+
+select distinct cod_item_categoria, dsc_item_categoria
+from stage.execucao_financeira_despesa;
+```
+
+Nota: Inserir visualizções das consultas (Em breve).
+
+### Tratamento dos dados - Valores nulos. Colunas vlr_empenho, vlr_pagamento.
+```
+select * from stage.execucao_financeira_despesa
+limit 5;
+
+select distinct vlr_empenho, vlr_pagamento
+from stage.execucao_financeira_despesa;
+
+select count(*) as total, 
+	count(vlr_empenho) as total_vlr_empenho,
+	count(vlr_pagamento) as total_vlr_pagamento
+from stage.execucao_financeira_despesa; -- Coluna vlr_pagamento com valores a menor.
+```
+
+```
+select vlr_pagamento
+from stage.execucao_financeira_despesa
+where vlr_pagamento is null; -- 111276 linhas null.
+```
+
+```
+update stage.execucao_financeira_despesa
+set vlr_pagamento = '0.00'
+where vlr_pagamento is null; -- Valores atualizados.
+
+select count(*) as total, 
+	count(vlr_empenho) as total_vlr_empenho,
+	count(vlr_pagamento) as total_vlr_pagamento
+from stage.execucao_financeira_despesa; -- Valores corrigidos.
+```
+
+Nota: Inserir visualizções das consultas (Em breve).
+
+### Tratamento dos dados - Valores negativos. Colunas vlr_empenho, vlr_pagamento.
+```
+select vlr_pagamento, vlr_empenho
+from stage.execucao_financeira_despesa
+where vlr_pagamento < 0 or vlr_empenho < 0;
+```
+
+Nota: Inserir visualizções das consultas (Em breve).
+
+### Tratamento dos dados - Valores nulos. Colunas dth_empenho, dth_pagamento.
+```
+select distinct dth_empenho, dth_pagamento
+from stage.execucao_financeira_despesa;
+
+select count(*) as total, 
+	count(dth_empenho) as total_dth_empenho,
+	count(dth_pagamento) as total_dth_pagamento
+from stage.execucao_financeira_despesa; -- Coluna dth_pagamento com valores a menor.
+```
+
+```
+select dth_pagamento
+from stage.execucao_financeira_despesa
+where dth_pagamento is null; -- 111276 linhas null.
+```
+
+```
+select count(*) as total, 
+	count(dth_empenho) as total_dth_empenho,
+	count(dth_pagamento) as total_dth_pagamento
+from stage.execucao_financeira_despesa; -- Valores corrigidos.
+```
 
 ## 5. Modelagem Lógica para o dw (BdSchema)
 
