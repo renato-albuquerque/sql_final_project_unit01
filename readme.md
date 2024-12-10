@@ -469,7 +469,7 @@ from stage.execucao_financeira_despesa; -- Valores corrigidos.
 
 Nota: Inserir visualizções das consultas (Em breve).
 
-## 5. Modelagem Lógica para o dw (BdSchema)
+## 5. Modelagem Lógica para o dw (DbSchema)
 
 ![screenshot](/images/dbschema.png) <br>
 
