@@ -591,4 +591,4 @@ Conexão/integração realizada entre os softwares `PostgreSQL` e `Microsoft Pow
 
 ## 8. Dashboard
 
-![screenshot](/images/dashboard.png) <br>
+![screenshot](/images/dashboard.jpg) <br>
