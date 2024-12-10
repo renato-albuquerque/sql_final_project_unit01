@@ -533,7 +533,59 @@ create table dw.fato_execucao_financeira (
 );
 ```
 
+### Inserir os dados nas tabelas Dimensão e Fato (dw).
 
+```
+-- dim_tempo
+INSERT INTO dw.dim_tempo (data_inteira, ano, mes, dia)
+SELECT
+dt as data_inteira,
+EXTRACT (YEAR FROM dt) AS ano,
+EXTRACT (MONTH FROM dt) AS mes,
+EXTRACT (DAY FROM dt) AS dia
+FROM generate_series (CURRENT_DATE -INTERVAL '30 years', CURRENT_DATE + INTERVAL '5 years', INTERVAL '1 day') AS dt;
+
+-- dim_orgao
+insert into dw.dim_orgao (codigo_orgao, dsc_orgao)
+select distinct codigo_orgao, dsc_orgao
+from stage.execucao_financeira_despesa;
+
+-- dim_item_elemento
+insert into dw.dim_item_elemento (cod_item_elemento, dsc_item_elemento)
+select distinct cod_item_elemento, dsc_item_elemento
+from stage.execucao_financeira_despesa;
+
+-- dim_item_categoria
+insert into dw.dim_item_categoria (cod_item_categoria, dsc_item_categoria)
+select distinct cod_item_categoria, dsc_item_categoria
+from stage.execucao_financeira_despesa
+order by cod_item_categoria;
+
+-- fato_execucao_financeira
+insert into dw.fato_execucao_financeira (
+	id_orgao, id_item_categoria, id_item_elemento, id_dth_empenho, id_dth_pagamento, vlr_empenho, vlr_pagamento)
+select dor.id as id_orgao, 
+		dic.id as id_item_categoria, 
+		die.id as id_item_elemento, 
+		dt_empenho.id as id_data_empenho,
+		dt_pagamento.id as id_data_pagamento,
+		vlr_empenho as valor_empenho, 
+		vlr_pagamento as valor_pagamento
+from stage.execucao_financeira_despesa efd
+inner join dw.dim_orgao dor on efd.codigo_orgao = dor.codigo_orgao
+inner join dw.dim_item_elemento die on efd.cod_item_elemento = die.cod_item_elemento
+inner join dw.dim_item_categoria dic on efd.cod_item_categoria = dic.cod_item_categoria
+inner join dw.dim_tempo dt_empenho on efd.dth_empenho = dt_empenho.data_inteira
+left join dw.dim_tempo dt_pagamento on efd.dth_pagamento = dt_pagamento.data_inteira;
+
+--
+select * from dw.dim_tempo;
+select * from dw.dim_orgao;
+select * from dw.dim_item_elemento;
+select * from dw.dim_item_categoria;
+select * from dw.fato_execucao_financeira;
+--
+```
 
 ## 7. Conexão dw com Microsoft Power BI
 
