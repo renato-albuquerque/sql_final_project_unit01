@@ -588,5 +588,8 @@ select * from dw.fato_execucao_financeira;
 ```
 
 ## 7. Conexão dw com Microsoft Power BI
+Conexão/integração realizada entre os softwares `PostgreSQL` e `Microsoft Power BI`.
 
 ## 8. Dashboard
+
+![screenshot](/images/dashboard.png) <br>
