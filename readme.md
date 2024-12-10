@@ -467,7 +467,11 @@ select count(*) as total,
 from stage.execucao_financeira_despesa; -- Valores corrigidos.
 ```
 
+Nota: Inserir visualizções das consultas (Em breve).
+
 ## 5. Modelagem Lógica para o dw (BdSchema)
+
+
 
 ## 6. Bd dw (Data Warehouse)
 
