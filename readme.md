@@ -475,6 +475,64 @@ Nota: Inserir visualizções das consultas (Em breve).
 
 ## 6. Bd dw (Data Warehouse)
 
+### Criar o bd dw, data_warehouse (Modelagem física).
+```
+create schema dw;
+```
+
+### Criar as tabelas do dw (data warehouse). 
+05 tabelas: <br>
+dim_tempo <br>  
+dim_orgao <br>
+dim_item_elemento <br> 
+dim_item_categoria <br> 
+fato_execucao_financeira <br>
+`Modelagem física.`
+
+```
+-- dim_tempo
+create table dw.dim_tempo (
+	id serial not null primary key,	
+	data_inteira date,
+	ano integer,
+	mes integer,
+	dia integer
+);
+
+-- dim_orgao
+create table dw.dim_orgao (
+	id serial not null primary key,
+	codigo_orgao text,
+	dsc_orgao text
+);
+
+-- dim_item_elemento
+create table dw.dim_item_elemento (
+	id serial not null primary key,
+	cod_item_elemento text,
+	dsc_item_elemento text
+);
+
+-- dim_item_categoria
+create table dw.dim_item_categoria (
+	id serial not null primary key,
+	cod_item_categoria text,
+	dsc_item_categoria text
+);
+
+-- fato_execucao_financeira
+create table dw.fato_execucao_financeira (
+	id serial not null primary key,
+	id_orgao INTEGER REFERENCES dw.dim_orgao(id),
+	id_item_categoria INTEGER REFERENCES dw.dim_item_categoria(id),
+    id_item_elemento INTEGER REFERENCES dw.dim_item_elemento(id),
+	id_dth_empenho INTEGER REFERENCES dw.dim_tempo(id),
+    id_dth_pagamento INTEGER REFERENCES dw.dim_tempo(id),
+	vlr_empenho NUMERIC(18,2),
+    vlr_pagamento NUMERIC(18,2)
+);
+```
+
 
 
 ## 7. Conexão dw com Microsoft Power BI
