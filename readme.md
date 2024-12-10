@@ -471,9 +471,11 @@ Nota: Inserir visualizções das consultas (Em breve).
 
 ## 5. Modelagem Lógica para o dw (BdSchema)
 
-
+![screenshot](/images/dbschema.png) <br>
 
 ## 6. Bd dw (Data Warehouse)
+
+
 
 ## 7. Conexão dw com Microsoft Power BI
 
