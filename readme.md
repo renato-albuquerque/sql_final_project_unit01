@@ -486,8 +486,7 @@ dim_tempo <br>
 dim_orgao <br>
 dim_item_elemento <br> 
 dim_item_categoria <br> 
-fato_execucao_financeira <br>
-`Modelagem física.`
+fato_execucao_financeira
 
 ```
 -- dim_tempo
