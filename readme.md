@@ -53,7 +53,7 @@ create database projeto_cgece;
 ```
 
 - Realizar `RESTORE` do bd do projeto. <br>
-(image)
+![screenshot](/images/restore.png) <br>
 
 - Visualizar a tabela execucao_financeira_despesa (schema public), as colunas e os dados.
 ```
