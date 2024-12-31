@@ -56,12 +56,13 @@ create database projeto_cgece;
 
 ![screenshot](/images/restore.png) <br>
 
-- Visualizar a tabela execucao_financeira_despesa (schema public), as colunas e os dados.
+- Visualizar a tabela execucao_financeira_despesa (schema public), as colunas e os dados (View de algumas colunas).
 ```
 select * from public.execucao_financeira_despesa
 limit 5;
 ```
-(image)
+
+![screenshot](/images/tb_public_efd.png) <br>
 
 ## 3. Bd Stage
 
@@ -108,7 +109,6 @@ create table stage.execucao_financeira_despesa (
 ```
 select * from stage.execucao_financeira_despesa;
 ```
-(image)
 
 - Carregar dados na tabela stage.execucao_financeira_despesa.
 ```
@@ -182,7 +182,8 @@ from public.execucao_financeira_despesa;
 select * from stage.execucao_financeira_despesa
 limit 5;
 ```
-(image)
+
+![screenshot](/images/tb_st_efd.png) <br>
 
 ## 4. ETL (Extract, Transform, Load) | Tratamento dos Dados
 
