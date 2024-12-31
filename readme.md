@@ -12,10 +12,11 @@ Instrutora: [Nayara Wakweski](https://github.com/NayaraWakewski) <br>
 2. Bd Produção
 
 ETL Process (Extract, Transform, Load) <br>
-3. Bd Stage <br> 
-4. Tratamento dos Dados <br>
-5. Modelagem Lógica para o dw (BdSchema) <br>
-6. Bd dw (Data Warehouse) <br>
+
+3. Bd Stage 
+4. Tratamento dos Dados
+5. Modelagem Lógica para o dw (BdSchema)
+6. Bd dw (Data Warehouse)
 
 7. Conexão dw com Microsoft Power BI
 8. Dashboard
