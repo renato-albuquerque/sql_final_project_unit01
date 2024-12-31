@@ -221,8 +221,6 @@ select distinct codigo_orgao, dsc_orgao
 from stage.execucao_financeira_despesa;
 ```
 
-Nota: Inserir visualizções das consultas (Em breve).
-
 ### Tratamento dos dados - Valores duplicados. Colunas codigo_orgao, dsc_orgao.
 ```
 select distinct codigo_orgao, dsc_orgao
@@ -244,8 +242,6 @@ update stage.execucao_financeira_despesa
 set dsc_orgao = 'SECRETARIA DA FAZENDA'
 where dsc_orgao = 'SECRETARIA DA FAZENDAsssssssssssssssssss'; -- Valores atualizados.
 ```
-
-Nota: Inserir visualizções das consultas (Em breve).
 
 ### Tratamento dos dados - Valores nulos. Colunas cod_item_elemento, dsc_item_elemento.
 ```
@@ -284,8 +280,6 @@ select distinct cod_item_elemento, dsc_item_elemento
 from stage.execucao_financeira_despesa;
 ```
 
-Nota: Inserir visualizções das consultas (Em breve).
-
 ### Tratamento dos dados - Valores duplicados. Colunas cod_item_elemento, dsc_item_elemento.
 ```
 select distinct cod_item_elemento, dsc_item_elemento
@@ -297,8 +291,6 @@ from stage.execucao_financeira_despesa
 group by cod_item_elemento, dsc_item_elemento
 having count(dsc_item_elemento) > 1; --82 resultados
 ```
-
-Nota: Inserir visualizções das consultas (Em breve).
 
 ### Tratamento dos dados - Corrigir dados duplicados, erro digitacao, texto minúsculo. Colunas cod_item_elemento, dsc_item_elemento.
 
@@ -367,8 +359,6 @@ from stage.execucao_financeira_despesa
 group by cod_item_elemento, dsc_item_elemento;
 ```
 
-Nota: Inserir visualizções das consultas (Em breve).
-
 ### Tratamento dos dados - Valores nulos. Colunas cod_item_categoria, dsc_item_categoria.
 ```
 select distinct cod_item_categoria, dsc_item_categoria
@@ -379,8 +369,6 @@ select count(*) as total,
 	count(dsc_item_categoria) as total_dsc_item_categoria
 from stage.execucao_financeira_despesa; -- Todas as colunas com a mesma qtde. de dados. 0 null.
 ```
-
-Nota: Inserir visualizções das consultas (Em breve).
 
 ### Tratamento dos dados - Valores duplicados. Colunas cod_item_categoria, dsc_item_categoria.
 ```
@@ -400,8 +388,6 @@ where dsc_item_categoria = 'DESPESA DE CAPITAL'; -- Valores atualizados.
 select distinct cod_item_categoria, dsc_item_categoria
 from stage.execucao_financeira_despesa;
 ```
-
-Nota: Inserir visualizções das consultas (Em breve).
 
 ### Tratamento dos dados - Valores nulos. Colunas vlr_empenho, vlr_pagamento.
 ```
@@ -434,16 +420,12 @@ select count(*) as total,
 from stage.execucao_financeira_despesa; -- Valores corrigidos.
 ```
 
-Nota: Inserir visualizções das consultas (Em breve).
-
 ### Tratamento dos dados - Valores negativos. Colunas vlr_empenho, vlr_pagamento.
 ```
 select vlr_pagamento, vlr_empenho
 from stage.execucao_financeira_despesa
 where vlr_pagamento < 0 or vlr_empenho < 0;
 ```
-
-Nota: Inserir visualizções das consultas (Em breve).
 
 ### Tratamento dos dados - Valores nulos. Colunas dth_empenho, dth_pagamento.
 ```
@@ -468,8 +450,6 @@ select count(*) as total,
 	count(dth_pagamento) as total_dth_pagamento
 from stage.execucao_financeira_despesa; -- Valores corrigidos.
 ```
-
-Nota: Inserir visualizções das consultas (Em breve).
 
 ## 5. Modelagem Lógica para o dw (DbSchema)
 
@@ -587,6 +567,14 @@ select * from dw.dim_item_categoria;
 select * from dw.fato_execucao_financeira;
 --
 ```
+
+### Visualização das tabelas Dimensão e Fato (dw).
+
+![screenshot](/images/dw_dim_tempo.png) <br>
+![screenshot](/images/dw_dim_orgao.png) <br>
+![screenshot](/images/dw_dim_item_elemento.png) <br>
+![screenshot](/images/dw_dim_item_categoria.png) <br>
+![screenshot](/images/dw_fato.png) <br>
 
 ## 7. Conexão dw com Microsoft Power BI
 Conexão/integração realizada entre os softwares `PostgreSQL` e `Microsoft Power BI`.
