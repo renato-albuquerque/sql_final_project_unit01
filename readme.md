@@ -570,19 +570,19 @@ select * from dw.fato_execucao_financeira;
 
 ### Visualização das tabelas Dimensão e Fato (dw).
 
-- dw.dim_tempo
+- dw.dim_tempo <br>
 ![screenshot](/images/dw_dim_tempo.png) <br>
 
-- dw.dim_orgao
+- dw.dim_orgao <br>
 ![screenshot](/images/dw_dim_orgao.png) <br>
 
-- dw.dim_item_elemento
+- dw.dim_item_elemento <br>
 ![screenshot](/images/dw_dim_item_elemento.png) <br>
 
-- dw.dim_item_categoria
+- dw.dim_item_categoria <br>
 ![screenshot](/images/dw_dim_item_categoria.png) <br>
 
-- dw.fato_execucao_financeira
+- dw.fato_execucao_financeira <br>
 ![screenshot](/images/dw_fato.png) <br>
 
 ## 7. Conexão dw com Microsoft Power BI
