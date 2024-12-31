@@ -8,15 +8,19 @@ Curso: Data Analytics (Turma 18) <br>
 Instrutora: [Nayara Wakweski](https://github.com/NayaraWakewski) <br>
 
 ## Etapas de Desenvolvimento
+*First Step*
+
 1. Entendimento do Projeto (Kick Off)
 2. Bd Produção
 
-ETL Process (Extract, Transform, Load) <br>
+*ETL Process (Extract, Transform, Load)* <br>
 
 3. Bd Stage 
 4. Tratamento dos Dados
 5. Modelagem Lógica para o dw (BdSchema)
 6. Bd dw (Data Warehouse)
+
+*Final Step*
 
 7. Conexão dw com Microsoft Power BI
 8. Dashboard
