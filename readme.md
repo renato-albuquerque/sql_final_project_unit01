@@ -25,7 +25,7 @@ Instrutora: [Nayara Wakweski](https://github.com/NayaraWakewski) <br>
 7. Conexão dw com Microsoft Power BI
 8. Dashboard <br>
 
-_Nota: Foi desenvolvida `DOCUMENTAÇÃO DO PROJETO` com informações detalhadas para cada etapa (Anexo pasta `files`)._ <br>
+*Note: Foi desenvolvida `DOCUMENTAÇÃO DO PROJETO` com informações detalhadas para cada etapa (Anexo pasta `files`).* <br>
 
 ## 1. Entendimento do Projeto (Kick Off)
 
