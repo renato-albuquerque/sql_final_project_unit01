@@ -52,7 +52,8 @@ Desenvolvimento de cronograma para planejar cada fase de execução do projeto.
 create database projeto_cgece;
 ```
 
-- Realizar `RESTORE` do bd do projeto. <br>
+- Realizar `RESTORE` do bd do projeto (imagem ilustrativa). <br>
+
 ![screenshot](/images/restore.png) <br>
 
 - Visualizar a tabela execucao_financeira_despesa (schema public), as colunas e os dados.
