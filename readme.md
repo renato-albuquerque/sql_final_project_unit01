@@ -10,10 +10,13 @@ Instrutora: [Nayara Wakweski](https://github.com/NayaraWakewski) <br>
 ## Etapas de Desenvolvimento
 1. Entendimento do Projeto (Kick Off)
 2. Bd Produção
+
+ETL Process (Extract, Transform, Load)
 3. Bd Stage
-4. ETL (Extract, Transform, Load) | Tratamento dos Dados
+4. Tratamento dos Dados
 5. Modelagem Lógica para o dw (BdSchema)
 6. Bd dw (Data Warehouse)
+
 7. Conexão dw com Microsoft Power BI
 8. Dashboard
 
