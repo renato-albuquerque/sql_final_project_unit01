@@ -53,6 +53,11 @@ Desenvolvimento de cronograma para planejar cada fase de execução do projeto.
 
 ![screenshot](/images/kick_off.png) <br>
 
+### 1.6. Arquitetura do Projeto 
+
+![screenshot](/images/arquitetura.png) <br>
+
+
 ## 2. Bd Produção
 
 - Criar bd `projeto_cgece`.
